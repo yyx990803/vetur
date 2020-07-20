@@ -82,4 +82,8 @@ export class VueInfoService {
     });
     return this.vueFileInfo.get(getFileFsPath(doc.uri));
   }
+
+  getImportedScripts(doc: TextDocument): string[] {
+    return this.languageModes.getImportedScripts(doc);
+  }
 }

@@ -1,5 +1,6 @@
 import { platform } from 'os';
 import Uri from 'vscode-uri';
+import * as path from 'path';
 
 /**
  * Vetur mainly deals with paths / uris from two objects
@@ -61,4 +62,9 @@ export function getFilePath(documentUri: string): string {
 
 export function normalizeFileNameToFsPath(fileName: string) {
   return Uri.file(fileName).fsPath;
+}
+
+export function resolveUriAndPaths(documentUri: string, ...pathSegments: string[]) {
+  const resolvedPath = path.resolve(getFilePath(documentUri), ...pathSegments);
+  return Uri.file(resolvedPath).toString();
 }

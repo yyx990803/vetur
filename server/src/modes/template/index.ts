@@ -33,7 +33,7 @@ export class VueHTMLMode implements LanguageMode {
   ) {
     const vueDocuments = getLanguageModelCache<HTMLDocument>(10, 60, document => parseHTMLDocument(document));
     this.htmlMode = new HTMLMode(documentRegions, workspacePath, vueDocuments, vueInfoService);
-    this.vueInterpolationMode = new VueInterpolationMode(tsModule, serviceHost, vueDocuments);
+    this.vueInterpolationMode = new VueInterpolationMode(tsModule, serviceHost, vueDocuments, vueInfoService);
   }
   getId() {
     return 'vue-html';

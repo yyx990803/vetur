@@ -190,7 +190,7 @@ describe('Should find template-diagnostics in <template> region', () => {
       ]
     },
     {
-      file: 'jsdocs-type-check.vue',
+      file: 'jsdoc-ts-check.vue',
       diagnostics: [
         {
           range: sameLineRange(2, 23, 26),
@@ -215,7 +215,7 @@ describe('Should find template-diagnostics in <template> region', () => {
       ]
     },
     {
-      file: 'external-script.vue',
+      file: 'external-ts-script.vue',
       diagnostics: [
         {
           range: sameLineRange(1, 10, 18),
@@ -250,7 +250,15 @@ describe('Should find template-diagnostics in <template> region', () => {
     });
   });
 
-  const noErrorTests: string[] = ['class.vue', 'style.vue', 'hyphen-attrs.vue', 'template-literal.vue'];
+  const noErrorTests: string[] = [
+    'class.vue',
+    'style.vue',
+    'hyphen-attrs.vue',
+    'template-literal.vue',
+    'js-only.vue',
+    'jsdoc-no-ts-check.vue',
+    'external-js-script.vue'
+  ];
 
   noErrorTests.forEach(t => {
     it(`Shows no template diagnostics error for ${t}`, async () => {

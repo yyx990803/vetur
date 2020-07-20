@@ -192,6 +192,10 @@ export class LanguageModes {
     return this.modes[languageId];
   }
 
+  getImportedScripts(document: TextDocument): string[] {
+    return this.documentRegions.refreshAndGet(document).getImportedScripts();
+  }
+
   onDocumentRemoved(document: TextDocument) {
     this.modelCaches.forEach(mc => mc.onDocumentRemoved(document));
     for (const mode in this.modes) {

@@ -14,7 +14,7 @@ import {
 } from 'vscode-languageserver-types';
 import { IServiceHost } from '../../services/typescriptService/serviceHost';
 import { languageServiceIncludesFile } from '../script/javascript';
-import { getFileFsPath } from '../../utils/paths';
+import { getFileFsPath, resolveUriAndPaths } from '../../utils/paths';
 import { mapBackRange, mapFromPositionToOffset } from '../../services/typescriptService/sourceMap';
 import * as ts from 'typescript';
 import { T_TypeScript } from '../../services/dependencyService';
@@ -22,6 +22,7 @@ import * as _ from 'lodash';
 import { createTemplateDiagnosticFilter } from '../../services/typescriptService/templateDiagnosticFilter';
 import { NULL_COMPLETION } from '../nullMode';
 import { toCompletionItemKind } from '../../services/typescriptService/util';
+import { VueInfoService } from '../../services/vueInfoService';
 import { LanguageModelCache } from '../../embeddedSupport/languageModelCache';
 import { HTMLDocument } from './parser/htmlParser';
 import { isInsideInterpolation } from './services/isInsideInterpolation';
@@ -32,7 +33,8 @@ export class VueInterpolationMode implements LanguageMode {
   constructor(
     private tsModule: T_TypeScript,
     private serviceHost: IServiceHost,
-    private vueDocuments: LanguageModelCache<HTMLDocument>
+    private vueDocuments: LanguageModelCache<HTMLDocument>,
+    private vueInfoService?: VueInfoService
   ) {}
 
   getId() {
@@ -48,7 +50,7 @@ export class VueInterpolationMode implements LanguageMode {
   }
 
   doValidation(document: TextDocument): Diagnostic[] {
-    if (!_.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true)) {
+    if (!this.interpolationEnabled() || !this.documentTypeChecked(document)) {
       return [];
     }
 
@@ -85,7 +87,7 @@ export class VueInterpolationMode implements LanguageMode {
   }
 
   doComplete(document: TextDocument, position: Position): CompletionList {
-    if (!_.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true)) {
+    if (!this.interpolationEnabled()) {
       return NULL_COMPLETION;
     }
 
@@ -164,7 +166,7 @@ export class VueInterpolationMode implements LanguageMode {
   }
 
   doResolve(document: TextDocument, item: CompletionItem): CompletionItem {
-    if (!_.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true)) {
+    if (!this.interpolationEnabled()) {
       return item;
     }
 
@@ -216,7 +218,7 @@ export class VueInterpolationMode implements LanguageMode {
     contents: MarkedString[];
     range?: Range;
   } {
-    if (!_.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true)) {
+    if (!this.interpolationEnabled()) {
       return { contents: [] };
     }
 
@@ -255,7 +257,7 @@ export class VueInterpolationMode implements LanguageMode {
   }
 
   findDefinition(document: TextDocument, position: Position): Location[] {
-    if (!_.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true)) {
+    if (!this.interpolationEnabled()) {
       return [];
     }
 
@@ -303,7 +305,7 @@ export class VueInterpolationMode implements LanguageMode {
   }
 
   findReferences(document: TextDocument, position: Position): Location[] {
-    if (!_.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true)) {
+    if (!this.interpolationEnabled()) {
       return [];
     }
 
@@ -353,6 +355,36 @@ export class VueInterpolationMode implements LanguageMode {
   onDocumentRemoved() {}
 
   dispose() {}
+
+  private interpolationEnabled(): boolean {
+    return _.get(this.config, ['vetur', 'experimental', 'templateInterpolationService'], true);
+  }
+  private documentTypeChecked(document: TextDocument): boolean {
+    const { updateCurrentVueTextDocument } = this.serviceHost;
+    const { service } = updateCurrentVueTextDocument(document);
+    const program = service.getProgram();
+
+    // If a component uses an external script, check the type of that file, rather than the component's script region
+    const scriptSrc = this.vueInfoService && this.vueInfoService.getImportedScripts(document)[0];
+    const scriptUri = scriptSrc ? resolveUriAndPaths(document.uri, '..', scriptSrc) : document.uri;
+
+    if (!languageServiceIncludesFile(service, scriptUri) || !program) {
+      return false;
+    }
+
+    const fileFsPath = getFileFsPath(scriptUri);
+    const sourceFile = program.getSourceFile(fileFsPath);
+
+    // TODO: Raise issue in TS repo, to mark `checkJsDirective` as externally available
+    // per discussion on AST viewer: https://github.com/dsherret/ts-ast-viewer/issues/65#issuecomment-605706743
+    const checkJsDirective: ts.CheckJsDirective | undefined = (sourceFile as any).checkJsDirective;
+    const isCheckJsEnabled = (checkJsDirective && checkJsDirective.enabled) || false;
+
+    // TODO: Raise issue in TS repo, to mark `scriptKind` as externally available
+    const isTypeScript = [ts.ScriptKind.TS, ts.ScriptKind.TSX].includes((sourceFile as any).scriptKind);
+
+    return isTypeScript || isCheckJsEnabled;
+  }
 }
 
 function getSourceDoc(fileName: string, program: ts.Program): TextDocument {
