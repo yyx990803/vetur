@@ -9,10 +9,22 @@ import {
 import { resolve } from 'path';
 import { existsSync } from 'fs';
 
-export function initializeLanguageClient(vlsModulePath: string, globalSnippetDir: string): LanguageClient {
+export function initializeLanguageClient(
+  vlsModulePath: string,
+  globalSnippetDir: string,
+  workspaceFolder?: vscode.WorkspaceFolder
+): LanguageClient {
   const debugOptions = { execArgv: ['--nolazy', '--inspect=6005'] };
 
-  const documentSelector = ['vue'];
+  const documentSelector = workspaceFolder
+    ? [
+        {
+          language: 'vue',
+          scheme: 'file',
+          pattern: `${workspaceFolder.uri.fsPath}/**/*`
+        }
+      ]
+    : ['vue'];
   const config = vscode.workspace.getConfiguration();
 
   let serverPath;
@@ -56,7 +68,8 @@ export function initializeLanguageClient(vlsModulePath: string, globalSnippetDir
       config,
       globalSnippetDir
     },
-    revealOutputChannelOn: RevealOutputChannelOn.Never
+    revealOutputChannelOn: RevealOutputChannelOn.Never,
+    workspaceFolder
   };
 
   return new LanguageClient('vetur', 'Vue Language Server', serverOptions, clientOptions);

@@ -11,7 +11,7 @@ connection.onInitialize(
   async (params: InitializeParams): Promise<InitializeResult> => {
     await vls.init(params);
 
-    console.log('Vetur initialized');
+    console.log(`Vetur initialized for workspace folder: ${params.rootPath}`);
 
     return {
       capabilities: vls.capabilities
