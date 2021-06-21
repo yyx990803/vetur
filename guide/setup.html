@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Setup | Vetur</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="Vue tooling for VS Code.">
+    
+    <link rel="preload" href="/vetur/assets/css/0.styles.6ccddcb7.css" as="style"><link rel="preload" href="/vetur/assets/js/app.fc941078.js" as="script"><link rel="preload" href="/vetur/assets/js/2.a8a01ee9.js" as="script"><link rel="preload" href="/vetur/assets/js/22.05c086b3.js" as="script"><link rel="prefetch" href="/vetur/assets/js/10.d61c521c.js"><link rel="prefetch" href="/vetur/assets/js/11.e4086d9d.js"><link rel="prefetch" href="/vetur/assets/js/12.a7a0a243.js"><link rel="prefetch" href="/vetur/assets/js/13.acdf949a.js"><link rel="prefetch" href="/vetur/assets/js/14.71f2fc99.js"><link rel="prefetch" href="/vetur/assets/js/15.785099ff.js"><link rel="prefetch" href="/vetur/assets/js/16.7f3f911a.js"><link rel="prefetch" href="/vetur/assets/js/17.4e9be80a.js"><link rel="prefetch" href="/vetur/assets/js/18.b311a36e.js"><link rel="prefetch" href="/vetur/assets/js/19.eef555f4.js"><link rel="prefetch" href="/vetur/assets/js/20.7b71cf51.js"><link rel="prefetch" href="/vetur/assets/js/21.48aef4fc.js"><link rel="prefetch" href="/vetur/assets/js/23.7c5809d9.js"><link rel="prefetch" href="/vetur/assets/js/24.219e5a57.js"><link rel="prefetch" href="/vetur/assets/js/25.85d7ffab.js"><link rel="prefetch" href="/vetur/assets/js/26.12c3afc2.js"><link rel="prefetch" href="/vetur/assets/js/3.8719b522.js"><link rel="prefetch" href="/vetur/assets/js/4.2af2356b.js"><link rel="prefetch" href="/vetur/assets/js/5.ffc85490.js"><link rel="prefetch" href="/vetur/assets/js/6.f36ab92b.js"><link rel="prefetch" href="/vetur/assets/js/7.9730a89f.js"><link rel="prefetch" href="/vetur/assets/js/8.c6009091.js"><link rel="prefetch" href="/vetur/assets/js/9.e9594009.js">
+    <link rel="stylesheet" href="/vetur/assets/css/0.styles.6ccddcb7.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vetur/" class="home-link router-link-active"><!----> <span class="site-name">Vetur</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vetur/guide/" class="nav-link router-link-active">
+  Guide
+</a></div><div class="nav-item"><a href="/vetur/reference/" class="nav-link">
+  Reference
+</a></div><div class="nav-item"><a href="/vetur/guide/FAQ.html" class="nav-link">
+  FAQ
+</a></div><div class="nav-item"><a href="https://github.com/vuejs/vetur/issues/873" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Roadmap
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="/vetur/credits.html" class="nav-link">
+  Credits
+</a></div><div class="nav-item"><a href="https://github.com/vuejs/vetur/wiki#contribution-guide" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Contribution Guide
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <a href="https://github.com/vuejs/vetur" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vetur/guide/" class="nav-link router-link-active">
+  Guide
+</a></div><div class="nav-item"><a href="/vetur/reference/" class="nav-link">
+  Reference
+</a></div><div class="nav-item"><a href="/vetur/guide/FAQ.html" class="nav-link">
+  FAQ
+</a></div><div class="nav-item"><a href="https://github.com/vuejs/vetur/issues/873" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Roadmap
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="/vetur/credits.html" class="nav-link">
+  Credits
+</a></div><div class="nav-item"><a href="https://github.com/vuejs/vetur/wiki#contribution-guide" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Contribution Guide
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <a href="https://github.com/vuejs/vetur" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/vetur/guide/" aria-current="page" class="sidebar-link">Quick start</a></li><li><a href="/vetur/guide/setup.html" aria-current="page" class="active sidebar-link">Setup</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vetur/guide/setup.html#extensions" class="sidebar-link">Extensions</a></li><li class="sidebar-sub-header"><a href="/vetur/guide/setup.html#vs-code-config" class="sidebar-link">VS Code Config</a></li><li class="sidebar-sub-header"><a href="/vetur/guide/setup.html#project-setup" class="sidebar-link">Project Setup</a></li><li class="sidebar-sub-header"><a href="/vetur/guide/setup.html#typescript" class="sidebar-link">Typescript</a></li><li class="sidebar-sub-header"><a href="/vetur/guide/setup.html#advanced" class="sidebar-link">Advanced</a></li><li class="sidebar-sub-header"><a href="/vetur/guide/setup.html#yarn-pnp" class="sidebar-link">Yarn PnP</a></li></ul></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Features</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vetur/guide/highlighting.html" class="sidebar-link">Syntax Highlighting</a></li><li><a href="/vetur/guide/semantic-highlighting.html" class="sidebar-link">Semantic Highlighting</a></li><li><a href="/vetur/guide/snippet.html" class="sidebar-link">Snippet</a></li><li><a href="/vetur/guide/emmet.html" class="sidebar-link">Emmet</a></li><li><a href="/vetur/guide/linting-error.html" class="sidebar-link">Linting / Error Checking</a></li><li><a href="/vetur/guide/formatting.html" class="sidebar-link">Formatting</a></li><li><a href="/vetur/guide/intellisense.html" class="sidebar-link">IntelliSense</a></li><li><a href="/vetur/guide/debugging.html" class="sidebar-link">Debugging</a></li><li><a href="/vetur/guide/component-data.html" class="sidebar-link">Component Data</a></li><li><a href="/vetur/guide/interpolation.html" class="sidebar-link">Interpolation Support</a></li><li><a href="/vetur/guide/vti.html" class="sidebar-link">VTI</a></li><li><a href="/vetur/guide/global-components.html" class="sidebar-link">Global components</a></li></ul></section></li><li><a href="/vetur/guide/FAQ.html" class="sidebar-link">FAQ</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="setup"><a href="#setup" class="header-anchor">#</a> Setup</h1> <h2 id="extensions"><a href="#extensions" class="header-anchor">#</a> Extensions</h2> <ul><li>Install <a href="https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented" target="_blank" rel="noopener noreferrer">Sass<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> for sass syntax highlighting.</li> <li>Install <a href="https://marketplace.visualstudio.com/items?itemName=sysoev.language-stylus" target="_blank" rel="noopener noreferrer">language-stylus<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> for stylus syntax highlighting.</li> <li>Install <a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank" rel="noopener noreferrer">ESLint extension<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> for linting vue and js files.</li></ul> <h2 id="vs-code-config"><a href="#vs-code-config" class="header-anchor">#</a> VS Code Config</h2> <ul><li><p>Add <code>vue</code> to your <code>eslint.validate</code> setting, for example:</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token property">&quot;eslint.validate&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string">&quot;javascript&quot;</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;javascriptreact&quot;</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;vue&quot;</span>
+<span class="token punctuation">]</span>
+</code></pre></div></li></ul> <h2 id="project-setup"><a href="#project-setup" class="header-anchor">#</a> Project Setup</h2> <ul><li><p>At project root exist <code>package.json</code> file, Vetur use it for infer vue version and get component date.</p></li> <li><p>At project root create a <code>jsconfig.json</code> or <code>tsconfig.json</code> that <code>include</code> all vue files and files that they import from, for example:</p></li> <li><p><code>jsconfig.json</code></p> <div class="language-json extra-class"><pre class="language-json"><code>  <span class="token punctuation">{</span>
+    <span class="token property">&quot;include&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;./src/**/*&quot;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre></div></li> <li><p><code>tsconfig.json</code></p> <div class="language-json extra-class"><pre class="language-json"><code>  <span class="token punctuation">{</span>
+    <span class="token property">&quot;include&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;./src/**/*&quot;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;compilerOptions&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;module&quot;</span><span class="token operator">:</span> <span class="token string">&quot;es2015&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;moduleResolution&quot;</span><span class="token operator">:</span> <span class="token string">&quot;node&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;target&quot;</span><span class="token operator">:</span> <span class="token string">&quot;es5&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;sourceMap&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;allowJs&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+</code></pre></div></li> <li><p><a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html" target="_blank" rel="noopener noreferrer">What is a tsconfig.json<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></li> <li><p><a href="https://www.typescriptlang.org/tsconfig" target="_blank" rel="noopener noreferrer">Reference<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></li></ul> <h4 id="jsconfig-vs-tsconfig"><a href="#jsconfig-vs-tsconfig" class="header-anchor">#</a> jsconfig vs tsconfig</h4> <ul><li>Use <code>tsconfig</code> for pure TS project.</li> <li>Use <code>jsconfig</code> for pure JS project.</li> <li>Use <code>jsconfig</code> or <code>tsconfig</code> with <code>allowJs: true</code> for mixed JS / TS project.</li></ul> <h3 id="path-mapping"><a href="#path-mapping" class="header-anchor">#</a> Path mapping</h3> <p>If you are using <a href="https://webpack.js.org/configuration/resolve/" target="_blank" rel="noopener noreferrer">Webpack's alias<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> or <a href="https://www.typescriptlang.org/docs/handbook/module-resolution.html" target="_blank" rel="noopener noreferrer">TypeScript's path mapping<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to resolve components, you need to update Vetur's <code>tsconfig.json</code> or <code>jsconfig.json</code>.</p> <p>For example:</p> <div class="language-html extra-class"><pre class="language-html"><code>└── src
+    ├── components
+    │   ├── a.vue
+    │   └── b.vue
+    ├── containers
+    │   └── index.vue
+    ├── index.js
+    └── jsconfig.json
+</code></pre></div><p>jsconfig.json:</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token property">&quot;compilerOptions&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;baseUrl&quot;</span><span class="token operator">:</span> <span class="token string">&quot;.&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;paths&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;components/*&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token string">&quot;src/components/*&quot;</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>index.vue</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> a <span class="token keyword">from</span> <span class="token string">'components/a.vue'</span>
+<span class="token keyword">import</span> b <span class="token keyword">from</span> <span class="token string">'components/b.vue'</span>
+</code></pre></div><h2 id="typescript"><a href="#typescript" class="header-anchor">#</a> Typescript</h2> <p>You need to add a shim type file to import a Vue SFC in a Typescript file.</p> <h3 id="vue2"><a href="#vue2" class="header-anchor">#</a> Vue2</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">// shims-vue.d.ts</span>
+<span class="token keyword">declare</span> <span class="token keyword">module</span> <span class="token string">'*.vue'</span> <span class="token punctuation">{</span>
+  <span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+  <span class="token keyword">export</span> <span class="token keyword">default</span> Vue
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="vue3"><a href="#vue3" class="header-anchor">#</a> Vue3</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">// shims-vue.d.ts</span>
+<span class="token keyword">declare</span> <span class="token keyword">module</span> <span class="token string">'*.vue'</span> <span class="token punctuation">{</span>
+  <span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token punctuation">{</span> DefineComponent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+  <span class="token keyword">const</span> component<span class="token operator">:</span> DefineComponent<span class="token operator">&lt;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token builtin">any</span><span class="token operator">&gt;</span>
+  <span class="token keyword">export</span> <span class="token keyword">default</span> component
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="advanced"><a href="#advanced" class="header-anchor">#</a> Advanced</h2> <p>If you use monorepo or VTI or <code>package.json</code> and <code>tsconfig.json/jsconfig.json</code> do not exist at project root, you can use <code>vetur.config.js</code> for advanced setting.</p> <p>Please add <code>vetur.config.js</code> at project root or monorepo project root.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// vetur.config.js</span>
+<span class="token comment">/** @type {import('vls').VeturConfig} */</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// **optional** default: `{}`</span>
+  <span class="token comment">// override vscode settings</span>
+  <span class="token comment">// Notice: It only affects the settings used by Vetur.</span>
+  settings<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;vetur.useWorkspaceDependencies&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;vetur.experimental.templateInterpolationService&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// **optional** default: `[{ root: './' }]`</span>
+  <span class="token comment">// support monorepos</span>
+  projects<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">'./packages/repo2'</span><span class="token punctuation">,</span> <span class="token comment">// Shorthand for specifying only the project root location</span>
+    <span class="token punctuation">{</span>
+      <span class="token comment">// **required**</span>
+      <span class="token comment">// Where is your project?</span>
+      <span class="token comment">// It is relative to `vetur.config.js`.</span>
+      root<span class="token operator">:</span> <span class="token string">'./packages/repo1'</span><span class="token punctuation">,</span>
+      <span class="token comment">// **optional** default: `'package.json'`</span>
+      <span class="token comment">// Where is `package.json` in the project?</span>
+      <span class="token comment">// We use it to determine the version of vue.</span>
+      <span class="token comment">// It is relative to root property.</span>
+      <span class="token keyword">package</span><span class="token operator">:</span> <span class="token string">'./package.json'</span><span class="token punctuation">,</span>
+      <span class="token comment">// **optional**</span>
+      <span class="token comment">// Where is TypeScript config file in the project?</span>
+      <span class="token comment">// It is relative to root property.</span>
+      tsconfig<span class="token operator">:</span> <span class="token string">'./tsconfig.json'</span><span class="token punctuation">,</span>
+      <span class="token comment">// **optional** default: `'./.vscode/vetur/snippets'`</span>
+      <span class="token comment">// Where is vetur custom snippets folders?</span>
+      snippetFolder<span class="token operator">:</span> <span class="token string">'./.vscode/vetur/snippets'</span><span class="token punctuation">,</span>
+      <span class="token comment">// **optional** default: `[]`</span>
+      <span class="token comment">// Register globally Vue component glob.</span>
+      <span class="token comment">// If you set it, you can get completion by that components.</span>
+      <span class="token comment">// It is relative to root property.</span>
+      <span class="token comment">// Notice: It won't actually do it. You need to use `require.context` or `Vue.component`</span>
+      globalComponents<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">'./src/components/**/*.vue'</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li><a href="/vetur/reference/">Read more <code>vetur.config.js</code> reference</a>.</li> <li><a href="https://github.com/vuejs/vetur/blob/master/rfcs/001-vetur-config-file.md" target="_blank" rel="noopener noreferrer">Read RFC<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</li></ul> <h2 id="yarn-pnp"><a href="#yarn-pnp" class="header-anchor">#</a> Yarn PnP</h2> <p>Vetur supports this feature now, but has some limits.</p> <ul><li>Don't mix common project and pnp project in multi-root/monorepo</li> <li>Prettier doesn't support Yarn PnP, so can't load plugin automatically.</li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/vuejs/vetur/edit/master/docs/guide/setup.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vetur/guide/" class="prev router-link-active">
+        Quick start
+      </a></span> <span class="next"><a href="/vetur/guide/highlighting.html">
+        Syntax Highlighting
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/vetur/assets/js/app.fc941078.js" defer></script><script src="/vetur/assets/js/2.a8a01ee9.js" defer></script><script src="/vetur/assets/js/22.05c086b3.js" defer></script>
+  </body>
+</html>
