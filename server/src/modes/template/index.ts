@@ -13,6 +13,7 @@ import { DependencyService, RuntimeLibrary } from '../../services/dependencyServ
 import { VCancellationToken } from '../../utils/cancellationToken';
 import { AutoImportSfcPlugin } from '../plugins/autoImportSfcPlugin';
 import { EnvironmentService } from '../../services/EnvironmentService';
+import { DocumentService } from '../../services/documentService';
 
 type DocumentRegionCache = LanguageModelCache<VueDocumentRegions>;
 
@@ -20,6 +21,7 @@ export class VueHTMLMode implements LanguageMode {
   private htmlMode: HTMLMode;
   private vueInterpolationMode: VueInterpolationMode;
   private autoImportSfcPlugin: AutoImportSfcPlugin;
+  private documentService: DocumentService;
 
   constructor(
     tsModule: RuntimeLibrary['typescript'],
@@ -28,6 +30,7 @@ export class VueHTMLMode implements LanguageMode {
     documentRegions: DocumentRegionCache,
     autoImportSfcPlugin: AutoImportSfcPlugin,
     dependencyService: DependencyService,
+    documentService: DocumentService,
     vueInfoService?: VueInfoService
   ) {
     const vueDocuments = getLanguageModelCache<HTMLDocument>(10, 60, document => parseHTMLDocument(document));
@@ -41,6 +44,7 @@ export class VueHTMLMode implements LanguageMode {
     );
     this.vueInterpolationMode = new VueInterpolationMode(tsModule, serviceHost, env, vueDocuments, vueInfoService);
     this.autoImportSfcPlugin = autoImportSfcPlugin;
+    this.documentService = documentService;
   }
   getId() {
     return 'vue-html';
@@ -118,7 +122,7 @@ export class VueHTMLMode implements LanguageMode {
     return this.vueInterpolationMode.findReferences(document, position);
   }
   findDefinition(document: TextDocument, position: Position) {
-    const htmlDefinition = this.htmlMode.findDefinition(document, position);
+    const htmlDefinition = this.htmlMode.findDefinition(document, position, this.documentService);
 
     return htmlDefinition.length > 0 ? htmlDefinition : this.vueInterpolationMode.findDefinition(document, position);
   }

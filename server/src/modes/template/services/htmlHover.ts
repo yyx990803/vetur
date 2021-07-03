@@ -1,10 +1,13 @@
 import { HTMLDocument } from '../parser/htmlParser';
 import { TokenType, createScanner } from '../parser/htmlScanner';
-import { Range, Position, Hover } from 'vscode-languageserver-types';
+import { Range, Position, Hover, MarkupContent } from 'vscode-languageserver-types';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 import { IHTMLTagProvider } from '../tagProviders';
 import { NULL_HOVER } from '../../nullMode';
 import { toMarkupContent } from '../../../utils/strings';
+import { kebabCase } from 'lodash';
+import { normalizeAttributeNameToKebabCase } from './htmlCompletion';
+import { AttributeCollector, TagCollector } from '../tagProviders/common';
 
 const TRIVIAL_TOKEN = [TokenType.StartTagOpen, TokenType.EndTagOpen, TokenType.Whitespace];
 
@@ -21,15 +24,18 @@ export function doHover(
   }
 
   function getTagHover(tag: string, range: Range, open: boolean): Hover {
-    tag = tag.toLowerCase();
+    tag = kebabCase(tag);
+
+    let hover: Hover | null = null;
+    const tagCollector: TagCollector = (resolvedTag, documentation) => {
+      if (resolvedTag !== tag && kebabCase(resolvedTag) !== tag) {
+        return;
+      }
+      hover = { contents: toMarkupContent(documentation), range };
+    };
+
     for (const provider of tagProviders) {
-      let hover: Hover | null = null;
-      provider.collectTags((t, documentation) => {
-        if (t !== tag) {
-          return;
-        }
-        hover = { contents: toMarkupContent(documentation), range };
-      });
+      provider.collectTags(tagCollector);
       if (hover) {
         return hover;
       }
@@ -38,14 +44,28 @@ export function doHover(
   }
 
   function getAttributeHover(tag: string, attribute: string, range: Range): Hover {
+    tag = kebabCase(tag);
+    const isEventAttribute = attribute.startsWith('@');
+
+    let hover: Hover | null = null;
+    const attributeCollector: AttributeCollector = (attr, type?, documentation?) => {
+      if (type === 'event' && !isEventAttribute) {
+        return;
+      }
+
+      if (type !== 'event' && isEventAttribute) {
+        return;
+      }
+
+      if (normalizeAttributeNameToKebabCase(attribute) !== normalizeAttributeNameToKebabCase(attr)) {
+        return;
+      }
+
+      hover = { contents: toMarkupContent(documentation), range };
+    };
+
     for (const provider of tagProviders) {
-      let hover: Hover | null = null;
-      provider.collectAttributes(tag, (attr, type, documentation) => {
-        if (attribute !== attr) {
-          return;
-        }
-        hover = { contents: toMarkupContent(documentation), range };
-      });
+      provider.collectAttributes(tag, attributeCollector);
       if (hover) {
         return hover;
       }

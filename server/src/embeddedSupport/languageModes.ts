@@ -43,11 +43,13 @@ import { createAutoImportSfcPlugin } from '../modes/plugins/autoImportSfcPlugin'
 import { EnvironmentService } from '../services/EnvironmentService';
 import { FileRename } from 'vscode-languageserver';
 import { RefTokensService } from '../services/RefTokenService';
+import { DocumentService } from '../services/documentService';
 
 export interface VLSServices {
   dependencyService: DependencyService;
   infoService: VueInfoService;
   refTokensService: RefTokensService;
+  documentService: DocumentService;
 }
 
 export interface LanguageMode {
@@ -69,7 +71,7 @@ export interface LanguageMode {
   findDocumentHighlight?(document: TextDocument, position: Position): DocumentHighlight[];
   findDocumentSymbols?(document: TextDocument): SymbolInformation[];
   findDocumentLinks?(document: TextDocument, documentContext: DocumentContext): DocumentLink[];
-  findDefinition?(document: TextDocument, position: Position): Definition;
+  findDefinition?(document: TextDocument, position: Position, documentService: DocumentService): Definition;
   findReferences?(document: TextDocument, position: Position): Location[];
   format?(document: TextDocument, range: Range, options: FormattingOptions): TextEdit[];
   findDocumentColors?(document: TextDocument): ColorInformation[];
@@ -141,6 +143,7 @@ export class LanguageModes {
       this.documentRegions,
       autoImportSfcPlugin,
       services.dependencyService,
+      services.documentService,
       services.infoService
     );
 

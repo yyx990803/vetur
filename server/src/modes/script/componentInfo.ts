@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { camelCase, kebabCase } from 'lodash';
 import type ts from 'typescript';
 import { BasicComponentInfo } from '../../config';
 import { RuntimeLibrary } from '../../services/dependencyService';
@@ -13,6 +13,8 @@ import {
 } from '../../services/vueInfoService';
 import { analyzeComponentsDefine } from './childComponents';
 import { getGlobalComponents } from './globalComponents';
+
+type AttributeCasing = 'kebab' | 'camel';
 
 export function getComponentInfo(
   tsModule: RuntimeLibrary['typescript'],
@@ -38,7 +40,12 @@ export function getComponentInfo(
     return undefined;
   }
 
-  const vueFileInfo = analyzeDefaultExportExpr(tsModule, defaultExportNode, checker);
+  const vueFileInfo = analyzeDefaultExportExpr(
+    tsModule,
+    defaultExportNode,
+    checker,
+    config.vetur.completion.attributeCasing
+  );
 
   const defaultExportType = checker.getTypeAtLocation(defaultExportNode);
   const componentsDefineInfo = analyzeComponentsDefine(
@@ -57,7 +64,9 @@ export function getComponentInfo(
         documentation: c.documentation,
         definition: c.definition,
         global: false,
-        info: c.defaultExportNode ? analyzeDefaultExportExpr(tsModule, c.defaultExportNode, checker) : undefined
+        info: c.defaultExportNode
+          ? analyzeDefaultExportExpr(tsModule, c.defaultExportNode, checker, config.vetur.completion.attributeCasing)
+          : undefined
       });
     });
     vueFileInfo.componentInfo.childComponents = childComponents;
@@ -78,7 +87,9 @@ export function getComponentInfo(
         documentation: c.documentation,
         definition: c.definition,
         global: true,
-        info: c.defaultExportNode ? analyzeDefaultExportExpr(tsModule, c.defaultExportNode, checker) : undefined
+        info: c.defaultExportNode
+          ? analyzeDefaultExportExpr(tsModule, c.defaultExportNode, checker, config.vetur.completion.attributeCasing)
+          : undefined
       }))
     ];
   }
@@ -89,13 +100,14 @@ export function getComponentInfo(
 export function analyzeDefaultExportExpr(
   tsModule: RuntimeLibrary['typescript'],
   defaultExportNode: ts.Node,
-  checker: ts.TypeChecker
+  checker: ts.TypeChecker,
+  attributeCasing: AttributeCasing
 ): VueFileInfo {
   const defaultExportType = checker.getTypeAtLocation(defaultExportNode);
 
   const insertInOptionAPIPos = getInsertInOptionAPIPos(tsModule, defaultExportType, checker);
-  const emits = getEmits(tsModule, defaultExportType, checker);
-  const props = getProps(tsModule, defaultExportType, checker);
+  const emits = getEmits(tsModule, defaultExportType, checker, attributeCasing);
+  const props = getProps(tsModule, defaultExportType, checker, attributeCasing);
   const data = getData(tsModule, defaultExportType, checker);
   const computed = getComputed(tsModule, defaultExportType, checker);
   const methods = getMethods(tsModule, defaultExportType, checker);
@@ -149,7 +161,8 @@ function getInsertInOptionAPIPos(
 function getEmits(
   tsModule: RuntimeLibrary['typescript'],
   defaultExportType: ts.Type,
-  checker: ts.TypeChecker
+  checker: ts.TypeChecker,
+  attributeCasing: AttributeCasing
 ): EmitInfo[] | undefined {
   // When there is @Emit and emits option both, use only emits option.
   const result: EmitInfo[] = getClassAndObjectInfo(
@@ -213,12 +226,22 @@ function getEmits(
       )?.expression as ts.CallExpression;
       const decoratorArgs = decoratorExpr.arguments;
 
-      let name = _.kebabCase(emitSymbol.name);
+      let name = kebabCase(emitSymbol.name);
       if (decoratorArgs.length > 0) {
         const firstNode = decoratorArgs[0];
         if (tsModule.isStringLiteral(firstNode)) {
           name = firstNode.text;
         }
+      }
+
+      const location = {
+        start: 0,
+        end: 0
+      };
+
+      if (emit.decorators && emit.decorators.length > 0) {
+        location.end = emit.decorators[0].expression.getEnd() ?? 0;
+        location.start = emit.decorators[0].expression.getStart() ?? 0;
       }
 
       let typeString: string | undefined = undefined;
@@ -244,10 +267,11 @@ function getEmits(
         emitInfoMap.set(name, oldEmitInfo);
       } else {
         emitInfoMap.set(name, {
-          name,
+          name: convertToCasing(name, attributeCasing),
           hasValidator: false,
           typeString,
-          documentation: buildDocumentation(tsModule, emitSymbol, checker)
+          documentation: buildDocumentation(tsModule, emitSymbol, checker),
+          location
         });
       }
     });
@@ -281,11 +305,15 @@ function getEmits(
         .filter(expr => expr.kind === tsModule.SyntaxKind.StringLiteral)
         .map(expr => {
           return {
-            name: (expr as ts.StringLiteral).text,
+            name: convertToCasing((expr as ts.StringLiteral).text, attributeCasing),
             hasValidator: false,
             documentation: `\`\`\`js\n${formatJSLikeDocumentation(
               emitsDeclaration.parent.getFullText().trim()
-            )}\n\`\`\`\n`
+            )}\n\`\`\`\n`,
+            location: {
+              start: emitsDeclaration.getStart(),
+              end: emitsDeclaration.getEnd()
+            }
           };
         });
     }
@@ -313,9 +341,13 @@ function getEmits(
             : { hasValidator: false };
 
         return {
-          name: s.name,
+          name: convertToCasing(s.name, attributeCasing),
           ...status,
-          documentation: buildDocumentation(tsModule, s, checker)
+          documentation: buildDocumentation(tsModule, s, checker),
+          location: {
+            start: node?.getStart() ?? 0,
+            end: node?.getEnd() ?? 0
+          }
         };
       });
     }
@@ -327,7 +359,8 @@ function getEmits(
 function getProps(
   tsModule: RuntimeLibrary['typescript'],
   defaultExportType: ts.Type,
-  checker: ts.TypeChecker
+  checker: ts.TypeChecker,
+  attributeCasing: AttributeCasing
 ): PropInfo[] | undefined {
   const result: PropInfo[] = markPropBoundToModel(
     defaultExportType,
@@ -342,6 +375,9 @@ function getProps(
         if (prop.name === 'value') {
           prop.isBoundToModel = true;
         }
+
+        prop.name = convertToCasing(prop.name, attributeCasing);
+
         return prop;
       });
     }
@@ -364,13 +400,18 @@ function getProps(
       if (prop.name === modelPropValue.text) {
         prop.isBoundToModel = true;
       }
+
+      prop.name = convertToCasing(prop.name, attributeCasing);
+
       return prop;
     });
   }
 
-  function getPropValidatorInfo(
-    propertyValue: ts.Node | undefined
-  ): { hasObjectValidator: boolean; required: boolean; typeString?: string } {
+  function getPropValidatorInfo(propertyValue: ts.Node | undefined): {
+    hasObjectValidator: boolean;
+    required: boolean;
+    typeString?: string;
+  } {
     if (!propertyValue) {
       return { hasObjectValidator: false, required: true };
     }
@@ -487,12 +528,24 @@ function getProps(
       )?.expression as ts.CallExpression;
       const decoratorName = decoratorExpr.expression.getText();
       const [firstNode, secondNode] = decoratorExpr.arguments;
+
+      const location = {
+        start: 0,
+        end: 0
+      };
+
+      if (prop.decorators && prop.decorators.length > 0) {
+        location.end = prop.decorators[0].expression.getEnd() ?? 0;
+        location.start = prop.decorators[0].expression.getStart() ?? 0;
+      }
+
       if (decoratorName === 'PropSync' && tsModule.isStringLiteral(firstNode)) {
         return {
           name: firstNode.text,
           ...getPropValidatorInfo(secondNode),
           isBoundToModel: false,
-          documentation: buildDocumentation(tsModule, propSymbol, checker)
+          documentation: buildDocumentation(tsModule, propSymbol, checker),
+          location
         };
       }
 
@@ -500,7 +553,8 @@ function getProps(
         name: propSymbol.name,
         ...getPropValidatorInfo(decoratorName === 'Model' ? secondNode : firstNode),
         isBoundToModel: decoratorName === 'Model',
-        documentation: buildDocumentation(tsModule, propSymbol, checker)
+        documentation: buildDocumentation(tsModule, propSymbol, checker),
+        location
       };
     });
   }
@@ -530,7 +584,11 @@ function getProps(
             isBoundToModel: false,
             documentation: `\`\`\`js\n${formatJSLikeDocumentation(
               propsDeclaration.parent.getFullText().trim()
-            )}\n\`\`\`\n`
+            )}\n\`\`\`\n`,
+            location: {
+              start: expr.getStart(),
+              end: expr.getEnd()
+            }
           };
         });
     }
@@ -561,7 +619,11 @@ function getProps(
           name: s.name,
           ...status,
           isBoundToModel: false,
-          documentation: buildDocumentation(tsModule, s, checker)
+          documentation: buildDocumentation(tsModule, s, checker),
+          location: {
+            start: node?.getStart() ?? -1,
+            end: node?.getEnd() ?? -1
+          }
         };
       });
     }
@@ -903,4 +965,19 @@ function formatJSLikeDocumentation(src: string): string {
       .map(s => s.slice(spacesToDeindent))
       .join('\n')
   );
+}
+
+function convertToCasing(text: string, casing: AttributeCasing) {
+  switch (casing) {
+    case 'camel': {
+      return camelCase(text);
+    }
+
+    case 'kebab': {
+      return kebabCase(text);
+    }
+
+    default:
+      return text;
+  }
 }

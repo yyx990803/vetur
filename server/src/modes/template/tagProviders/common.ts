@@ -1,7 +1,7 @@
 import { MarkupContent } from 'vscode-languageserver-types';
 import { kebabCase } from 'lodash';
 
-interface TagCollector {
+export interface TagCollector {
   (tag: string, documentation: string | MarkupContent): void;
 }
 
@@ -52,7 +52,13 @@ export interface IValueSets {
 }
 
 export function getSameTagInSet<T>(tagSet: Record<string, T>, tag: string): T | undefined {
-  return tagSet[tag] ?? tagSet[tag.toLowerCase()] ?? tagSet[kebabCase(tag)];
+  for (const tagInTagSet in tagSet) {
+    if (tagInTagSet.toLowerCase() === tag.toLowerCase() || kebabCase(tag) === kebabCase(tagInTagSet)) {
+      return tagSet[tagInTagSet];
+    }
+  }
+
+  return undefined;
 }
 
 export function collectTagsDefault(collector: TagCollector, tagSet: ITagSet): void {

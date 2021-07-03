@@ -39,7 +39,7 @@ import { URI } from 'vscode-uri';
 import type ts from 'typescript';
 import _ from 'lodash';
 
-import { nullMode, NULL_SIGNATURE } from '../nullMode';
+import { NULL_SIGNATURE } from '../nullMode';
 import { BasicComponentInfo, VLSFormatConfig } from '../../config';
 import { VueInfoService } from '../../services/vueInfoService';
 import { getComponentInfo } from './componentInfo';

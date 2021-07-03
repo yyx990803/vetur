@@ -1,4 +1,4 @@
-import { CompletionItem, CompletionItemKind, MarkdownString } from 'vscode';
+import { CompletionItem, CompletionItemKind, ConfigurationTarget, MarkdownString, workspace } from 'vscode';
 import { position } from '../../../util';
 import { testCompletion, testNoSuchCompletion } from '../../../completionHelper';
 import { getDocUri } from '../../path';
@@ -61,7 +61,23 @@ describe('Should autocomplete interpolation for <template>', () => {
       ]);
     });
 
-    it(`completes child component tag`, async () => {
+    it(`completes child component tag (initial tag casing)`, async () => {
+      const c = workspace.getConfiguration();
+      await c.update('vetur.completion.tagCasing', 'initial', ConfigurationTarget.Global);
+
+      await testCompletion(parentTemplateDocUri, position(6, 5), [
+        {
+          label: 'Basic',
+          kind: CompletionItemKind.Property,
+          documentationStart: 'My basic tag\n```js\nexport default {'
+        }
+      ]);
+    });
+
+    it(`completes child component tag (kebab tag casing)`, async () => {
+      const c = workspace.getConfiguration();
+      await c.update('vetur.completion.tagCasing', 'kebab', ConfigurationTarget.Global);
+
       await testCompletion(parentTemplateDocUri, position(6, 5), [
         {
           label: 'basic',

@@ -1,4 +1,4 @@
-import { CompletionItem, CompletionItemKind, MarkdownString } from 'vscode';
+import { CompletionItem, CompletionItemKind, ConfigurationTarget, MarkdownString, workspace } from 'vscode';
 import { getDocUri } from '../../path';
 import { testCompletion, testNoSuchCompletion } from '../../../completionHelper';
 import { position } from '../../../util';
@@ -101,6 +101,9 @@ describe('Should autocomplete interpolation for <template> in property class com
     });
 
     it(`completes child component's emits`, async () => {
+      const c = workspace.getConfiguration();
+      await c.update('vetur.completion.attributeCasing', 'kebab', ConfigurationTarget.Global);
+
       await testCompletion(parentTemplateDocUri, position(2, 27), [
         {
           label: 'baz',

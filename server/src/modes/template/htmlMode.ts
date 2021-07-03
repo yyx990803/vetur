@@ -30,6 +30,7 @@ import { DependencyService } from '../../services/dependencyService';
 import { isVCancellationRequested, VCancellationToken } from '../../utils/cancellationToken';
 import { AutoImportSfcPlugin } from '../plugins/autoImportSfcPlugin';
 import { EnvironmentService } from '../../services/EnvironmentService';
+import { DocumentService } from '../../services/documentService';
 
 export class HTMLMode implements LanguageMode {
   private tagProviderSettings: CompletionConfiguration;
@@ -103,6 +104,11 @@ export class HTMLMode implements LanguageMode {
     const embedded = this.embeddedDocuments.refreshAndGet(document);
     const tagProviders: IHTMLTagProvider[] = [...this.enabledTagProviders];
 
+    const info = this.vueInfoService ? this.vueInfoService.getInfo(document) : undefined;
+    if (info && info.componentInfo.childComponents) {
+      tagProviders.push(getComponentInfoTagProvider(info.componentInfo.childComponents));
+    }
+
     return doHover(embedded, position, this.vueDocuments.refreshAndGet(embedded), tagProviders);
   }
   findDocumentHighlight(document: TextDocument, position: Position) {
@@ -117,10 +123,10 @@ export class HTMLMode implements LanguageMode {
   format(document: TextDocument, range: Range, formattingOptions: FormattingOptions) {
     return htmlFormat(this.dependencyService, document, range, this.env.getConfig().vetur.format as VLSFormatConfig);
   }
-  findDefinition(document: TextDocument, position: Position) {
+  findDefinition(document: TextDocument, position: Position, documentService: DocumentService) {
     const embedded = this.embeddedDocuments.refreshAndGet(document);
     const info = this.vueInfoService ? this.vueInfoService.getInfo(document) : undefined;
-    return findDefinition(embedded, position, this.vueDocuments.refreshAndGet(embedded), info);
+    return findDefinition(embedded, position, this.vueDocuments.refreshAndGet(embedded), documentService, info);
   }
   getFoldingRanges(document: TextDocument) {
     const embedded = this.embeddedDocuments.refreshAndGet(document);

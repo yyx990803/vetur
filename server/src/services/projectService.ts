@@ -98,7 +98,8 @@ export async function createProjectService(
     {
       infoService: vueInfoService,
       dependencyService,
-      refTokensService
+      refTokensService,
+      documentService
     },
     globalSnippetDir
   );
@@ -206,7 +207,7 @@ export async function createProjectService(
       const doc = documentService.getDocument(textDocument.uri)!;
       const mode = languageModes.getModeAtPosition(doc, position);
       if (mode && mode.findDefinition) {
-        return mode.findDefinition(doc, position);
+        return mode.findDefinition(doc, position, documentService);
       }
       return [];
     },

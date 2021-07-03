@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-property-class @></basic-property-class>
-    <basic-property-class v-if="" @click="" :foo=""></basic-property-class>
+    <basic-property-class v-if="" @click="" :foo="" ></basic-property-class>
     <BasicPropertyClass  />
     <
   </div>

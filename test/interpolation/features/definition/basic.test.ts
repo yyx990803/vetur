@@ -1,4 +1,4 @@
-import { position, sameLineLocation } from '../../../util';
+import { position, sameLineLocation, location } from '../../../util';
 import { getDocUri } from '../../path';
 import { testDefinition } from '../../../definitionHelper';
 
@@ -7,7 +7,7 @@ describe('Should find definition', () => {
 
   it('finds definition for child tag', async () => {
     const tagUri = getDocUri('definition/Child.vue');
-    await testDefinition(docUri, position(2, 5), sameLineLocation(tagUri, 0, 0, 0));
+    await testDefinition(docUri, position(2, 5), location(tagUri, 5, 15, 9, 1));
   });
 
   it('finds definition for test-bar tag', async () => {

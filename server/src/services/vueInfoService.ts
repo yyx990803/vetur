@@ -67,6 +67,7 @@ export interface EmitInfo {
   hasValidator: boolean;
   documentation?: string;
   typeString?: string;
+  location: { start: number; end: number };
 }
 
 export interface PropInfo {
@@ -87,6 +88,7 @@ export interface PropInfo {
   isBoundToModel: boolean;
   documentation?: string;
   typeString?: string;
+  location: { start: number; end: number };
 }
 export interface DataInfo {
   name: string;

@@ -91,14 +91,22 @@ export function analyzeComponentsDefine(
           return;
         }
 
+        const definition = {
+          start: 0,
+          end: 0,
+          path: sourceFile.fileName
+        };
+
+        // If export node is equal to '{}' it means that the vue file doesn't have <script> component.
+        if (!tsModule.isObjectLiteralExpression(defaultExportNode) || defaultExportNode.properties.length > 0) {
+          definition.start = defaultExportNode.getStart(sourceFile, true);
+          definition.end = defaultExportNode.getEnd();
+        }
+
         result.push({
           name: componentName,
           documentation: buildDocumentation(tsModule, definitionSymbol, checker),
-          definition: {
-            path: sourceFile.fileName,
-            start: defaultExportNode.getStart(sourceFile, true),
-            end: defaultExportNode.getEnd()
-          },
+          definition,
           defaultExportNode
         });
       }

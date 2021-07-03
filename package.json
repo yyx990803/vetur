@@ -270,6 +270,19 @@
           ],
           "description": "Casing conversion for tag completion"
         },
+        "vetur.completion.attributeCasing": {
+          "type": "string",
+          "default": "kebab",
+          "enum": [
+            "camel",
+            "kebab"
+          ],
+          "enumDescriptions": [
+            "camelCase completion for <... myAttribute>",
+            "kebab-case completion for <... my-attribute>"
+          ],
+          "description": "Casing conversion for :prop and @event attribute completion"
+        },
         "vetur.grammar.customBlocks": {
           "type": "object",
           "default": {
