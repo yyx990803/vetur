@@ -7,7 +7,7 @@
   "author": "Pine Wu <octref@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^7.2.0",
+    "commander": "^8.0.0",
     "vls": "^0.7.2"
   },
   "scripts": {
