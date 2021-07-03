@@ -52,7 +52,7 @@
     "fast-glob": "^3.2.5",
     "glob": "^7.1.7",
     "gridsome-helper-json": "^1.0.3",
-    "js-beautify": "^1.13.13",
+    "js-beautify": "^1.14.0",
     "lodash": "^4.17.21",
     "mocha": "^9.0.1",
     "nuxt-helper-json": "^1.0.0",
