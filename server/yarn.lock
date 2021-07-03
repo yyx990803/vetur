@@ -3748,13 +3748,13 @@ safer-buffer@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-sass-formatter@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/sass-formatter/-/sass-formatter-0.7.1.tgz#0792fe878ceef5585c9c54efb1c1e6b3364f7c3b"
-  integrity sha512-toOG7ItpYaHWTK5nHFZCg6AQ0Tbm5/SzzgCa6Ut/TxX39BZTRiV9ikpGlEmEIou3CRPPmcIaG/91XtfmP6+HVQ==
+sass-formatter@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/sass-formatter/-/sass-formatter-0.7.2.tgz#bfac14c17dd7d3fb3967a5a80f5c34d27ed60daa"
+  integrity sha512-ZGpZC5bWJbv0tiu2glZeLhN85sg3wSySyHxhqov/HZX1/2coczLkY0HXIshrmRC7+G8qiFkeW8Ipl5mS54nl0w==
   dependencies:
     suf-log "^2.5.3"
-    suf-regex "^0.3.2"
+    suf-regex "^0.3.4"
 
 sax@~1.2.4:
   version "1.2.4"
@@ -4156,10 +4156,10 @@ suf-log@^2.5.3:
   dependencies:
     s.color "0.0.15"
 
-suf-regex@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/suf-regex/-/suf-regex-0.3.2.tgz#f3494a59ad85166160758e161128bbdbb064eea0"
-  integrity sha512-Fc9PBP7s/WNXCMbbw7cfbh7MtSU8/JpB3xHUzkYsMXL5hT9RSmwLPeGryAKrtkz45gQ+X4dkNi7XpJqEXMK7RA==
+suf-regex@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/suf-regex/-/suf-regex-0.3.4.tgz#8d1e0cafe1646755264895914cf44442a1202132"
+  integrity sha512-2Txjq2T4BrNKM53ACN8ZXzMulrL2ILDpTwWBy/bXX+gYALWB7pGkCVmCrj/TZrFgGWgmujdXoWmYfeyY2Ky4/g==
   dependencies:
     del-cli "^3.0.0"
 
