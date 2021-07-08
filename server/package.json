@@ -23,7 +23,7 @@
   "homepage": "https://github.com/vuejs/vetur/tree/master/server",
   "dependencies": {
     "eslint": "^7.27.0",
-    "eslint-plugin-vue": "^7.10.0",
+    "eslint-plugin-vue": "^7.13.0",
     "prettier": "^2.3.1",
     "tslint": "6.1.3",
     "typescript": "^4.3.2"
