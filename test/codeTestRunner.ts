@@ -3,7 +3,7 @@ import fs from 'fs';
 import $ from 'shelljs';
 import minimist from 'minimist';
 
-import { downloadAndUnzipVSCode, runTests } from 'vscode-test';
+import { downloadAndUnzipVSCode, runTests } from '@vscode/test-electron';
 
 console.log('### Vetur Integration Test ###');
 console.log('');
